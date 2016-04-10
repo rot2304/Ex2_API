@@ -33,4 +33,8 @@ dataset<- rbind(temp,dataset)
 
 זאת ע"מ שנוכל להסיק מסקנות יותר מבוססות לגבי הקשר בין התחזית לבין היבשת והעיר.
 
+## שמירת סט המידע וטעינתו לתוך DataFrame:
+```saveRDS(dataset, file="weather_data.Rda")
+dataset <- readRDS(file="weather_data.Rda")
+```
 
