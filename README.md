@@ -54,3 +54,14 @@ boxplot(dataset$temp_high~dataset$Area,col="blue",las=2 )
 בגרף זה ניתן לראות את השוני בטווחי מזג האוויר בערים השונות. ניתן לראות שמזג האוויר בערים השונות הוא די שונה וכל עיר טווח משלה ואין כ"כ חפיפה במזג האוויר בין הערים.
 בגרפים הבאים שניצור ננסה להבין ממה נובע שוני זה ומה משפיע על מזג האוויר בערים השונות, אם ישנו קשר בין היבשות שבו הם נמצאות.
 
+#### ScatterPlot:
+```{r}
+dataset$Area<- as.factor(dataset$Area)
+dataset$temp_high<- as.integer(dataset$temp_high)
+dataset$Land <- as.factor(dataset$Land)
+par(mar=c(10,4,4,2) + 0.1)
+install.packages("reshape")
+require(“reshape”)
+ggplot(data=dataset, aes(x=Area, y=temp_high,col=Land)) +
++     geom_line(size=2) +  theme(axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))
+```
