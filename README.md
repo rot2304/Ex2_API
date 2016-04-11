@@ -87,3 +87,4 @@ model <- train(x, y, method="lvq", preProcess="scale", trControl=control)
 importance <- varImp(model, scale=FALSE)
 plot(importance)
 ```
+![](https://cloud.githubusercontent.com/assets/17852872/14420471/e548a7be-ffd4-11e5-82fc-946b6fa69143.png)
