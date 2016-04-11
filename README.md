@@ -9,7 +9,8 @@
 
 ## תיעוד הקוד -קבלת סט המידע מה-API:
 
-```Install.packages(“rwunderground”)
+```{r}
+Install.packages(“rwunderground”)
 Require(rwunderground)
 location<- “Israel/Jerusalem”
 dataset<-forecast10day(location)
@@ -36,9 +37,15 @@ dataset<- rbind(temp,dataset)
 ## שמירת סט המידע וטעינתו לתוך DataFrame:
 
 
-```
+```{r}
 saveRDS(dataset, file="weather_data.Rda")
 dataset <- readRDS(file="weather_data.Rda")
 ```
+##ניתוח הנתונים:
+###גרפים:
+#### boxplot:
 
-
+```{r}
+par(mar=c(9.5,3,0.5, 0.3))
+boxplot(dataset$temp_high~dataset$Area,col="blue",las=2 ) 
+```
