@@ -70,3 +70,20 @@ ggplot(data=dataset, aes(x=Area, y=temp_high,col=Land)) +
 
 בגרף זה טווח המזג אוויר (המשוקלל ע"י טמפטורה ורוחות) אשר של כל הערים אשר באותה היבשת נצבעו באותו הצבע. ניתן לראות שטווח מזגי האוויר של ערים אשר באותה בישת (באותו צבע בגרף) מתקבצים סביב אותו איזור ונמצאים פחות או יותר באותו טווח. מכאן אנחנו יכולים להסיק מסקנה שישנו קשר ישיר מובהק בין היבשת למזג האוויר, כלומר היבשת בה נמצאת העיר משפיעה באופן ישירה על מזג האוויר בה ולכן בערים באותה היבשת ישנו מזג אוויר דומה.
 
+#### ניתוח חשיבות מאפיינים שונים:
+```{r}
+dataset <- readRDS(file="weather_data.Rda")
+dataset = within(dataset, {cat_temp = ifelse(temp_high > 73, 1, 0)})
+write.csv(dataset, "test.csv", row.names=FALSE)
+dataset<-read.csv("./test.csv")
+set.seed(nrow(dataset))
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+dataset$cat_temp <-as.factor(dataset$cat_temp)
+dataset$Area <-as.numeric(dataset$Area)
+dataset$Land <-as.numeric(dataset$Land)
+x<- dataset[,c("Land","Area")]
+y<- dataset$cat_temp
+model <- train(x, y, method="lvq", preProcess="scale", trControl=control)
+importance <- varImp(model, scale=FALSE)
+plot(importance)
+```
